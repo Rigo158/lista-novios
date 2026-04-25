@@ -370,22 +370,20 @@
         const card = document.createElement('article');
         card.className = 'gift-card' + (r.reservado ? ' reservado' : '');
         card.dataset.id = r.id;
-        card.innerHTML = \`
-          <div class="gift-icon">\${r.emoji}</div>
-          <div class="gift-body">
-            <h3 class="gift-title">\${r.nombre}</h3>
-            <p class="gift-desc">\${r.descripcion}</p>
-            <div class="gift-price-row">
-              <span class="gift-price">\${r.precio_texto}</span>
-              \${r.reservado
-                ? '<span class="gift-badge-gifted">✓ Ya reservado</span>'
-                : \`<button class="btn-regalar" onclick="openModal(\${r.id},\'\${r.nombre.replace(/'/g,"\\'")}\',\${r.precio||0})">Regalar 💜</button>\`
-              }
-            </div>
-          </div>\`;
-        grid.appendChild(card);
-      });
-    }
+        const reservadoHTML = r.reservado
+          ? '<span class="gift-badge-gifted">✓ Ya reservado</span>'
+          : '<button class="btn-regalar" onclick="openModal(' + r.id + ',\'' + r.nombre.replace(/\'/g, "\\'") + '\',' + (r.precio||0) + ')">Regalar 💜</button>';
+
+        card.innerHTML =
+          '<div class="gift-icon">' + r.emoji + '</div>' +
+          '<div class="gift-body">' +
+            '<h3 class="gift-title">' + r.nombre + '</h3>' +
+            '<p class="gift-desc">' + r.descripcion + '</p>' +
+            '<div class="gift-price-row">' +
+              '<span class="gift-price">' + r.precio_texto + '</span>' +
+              reservadoHTML +
+            '</div>' +
+          '</div>';}
 
     // ── Modal ───────────────────────────────────────────────
     const overlay = document.getElementById('modalOverlay');
