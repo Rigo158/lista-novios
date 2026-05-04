@@ -1,10 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lista de Novios · Valeria &amp; Francesco</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Lista de Novios · Valeria &amp; Francesco" />
+  <meta property="og:description" content="Comparte este día especial con nosotros. Aquí dejamos algunas ideas de regalo que nos harían muy felices." />
+  <meta property="og:image"       content="https://qzzhworyzlehdjopyqly.supabase.co/storage/v1/object/public/assets/hero.jpg" />
+  <meta property="og:type"        content="website" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,16 +18,16 @@
   <style>
     /* ═══════════════════════════════════════════
        PALETA — extraída de la invitación
-       Flores: lavanda/púrpura  #9b7fc7
-       Hojas:  verde salvia      #7a9e78
+       Flores: lavanda/púrpura  #8b6fba
+       Hojas:  verde salvia      #5e8a5e
        Fondo:  crema             #f8f5f0
        Texto:  verde oscuro      #2a4535
        Líneas: taupe             #b09880
        ═══════════════════════════════════════════ */
     :root {
-      --font-display:  'Cormorant Garamond', Georgia, serif;
-      --font-script:   'Dancing Script', cursive;
-      --font-body:     'DM Sans', 'Helvetica Neue', sans-serif;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-script:  'Dancing Script', cursive;
+      --font-body:    'DM Sans', 'Helvetica Neue', sans-serif;
 
       --color-bg:           #f8f5f0;
       --color-surface:      #ffffff;
@@ -36,20 +41,16 @@
       --color-text-muted:   #7a6a7a;
       --color-text-faint:   #b8acb8;
 
-      /* Lavanda — acento principal */
       --color-primary:        #8b6fba;
       --color-primary-hover:  #6e52a0;
       --color-primary-light:  #f0ebf8;
       --color-primary-pale:   #e6ddf5;
 
-      /* Verde salvia */
-      --color-sage:           #5e8a5e;
-      --color-sage-hover:     #4a6f4a;
-      --color-sage-light:     #eef3ee;
+      --color-sage:       #5e8a5e;
+      --color-sage-light: #eef3ee;
 
-      /* Taupe decorativo */
-      --color-taupe:          #b09880;
-      --color-taupe-light:    #f5f0eb;
+      --color-taupe:       #b09880;
+      --color-taupe-light: #f5f0eb;
 
       --radius-sm:   .375rem;
       --radius-md:   .75rem;
@@ -61,9 +62,9 @@
       --shadow-md: 0 4px 20px rgba(80,50,120,.11);
       --shadow-lg: 0 12px 48px rgba(80,50,120,.16);
 
-      --space-1:.25rem; --space-2:.5rem; --space-3:.75rem;
-      --space-4:1rem;   --space-5:1.25rem; --space-6:1.5rem;
-      --space-8:2rem;   --space-10:2.5rem; --space-12:3rem;
+      --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem;
+      --space-4:1rem;   --space-5:1.25rem;--space-6:1.5rem;
+      --space-8:2rem;   --space-10:2.5rem;--space-12:3rem;
       --space-16:4rem;  --space-20:5rem;
 
       --text-xs:   clamp(.75rem,.7rem+.25vw,.875rem);
@@ -72,7 +73,6 @@
       --text-lg:   clamp(1.125rem,1rem+.75vw,1.5rem);
       --text-xl:   clamp(1.5rem,1.2rem+1.25vw,2.25rem);
       --text-2xl:  clamp(2rem,1.2rem+2.5vw,3.5rem);
-      --text-hero: clamp(3rem,1.2rem+5vw,6rem);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -82,7 +82,7 @@
     button { cursor: pointer; border: none; background: none; font: inherit; }
 
     /* ════════════════════════════════════════
-       HERO — imagen full-width con overlay
+       HERO
        ════════════════════════════════════════ */
     .hero {
       position: relative;
@@ -95,8 +95,6 @@
       overflow: hidden;
       text-align: center;
     }
-
-    /* La imagen de fondo — reemplaza el src con la tuya */
     .hero-bg {
       position: absolute;
       inset: 0;
@@ -104,8 +102,6 @@
       object-fit: cover;
       object-position: center top;
     }
-
-    /* Overlay degradado suave */
     .hero-overlay {
       position: absolute;
       inset: 0;
@@ -117,7 +113,6 @@
         rgba(248,245,240,1)    100%
       );
     }
-
     .hero-content {
       position: relative;
       z-index: 2;
@@ -126,10 +121,8 @@
       flex-direction: column;
       align-items: center;
       gap: var(--space-4);
-      /* Suave halo radial detrás del texto — no es una caja, es un difuminado suave */
       background: radial-gradient(ellipse 80% 90% at center, rgba(248,245,240,0.62) 0%, rgba(248,245,240,0.28) 55%, transparent 100%);
     }
-
     .hero-ornament {
       font-family: var(--font-display);
       font-size: var(--text-xs);
@@ -139,18 +132,13 @@
       font-weight: 600;
       text-shadow: 0 0 16px rgba(248,245,240,1);
     }
-
     .hero-names {
       font-family: var(--font-script);
       font-size: clamp(2.8rem, 1.2rem + 4.5vw, 5.5rem);
       font-weight: 700;
       color: var(--color-text-forest);
       line-height: 1.05;
-      /* Halo blanco suave alrededor de las letras */
-      text-shadow:
-        0 0 32px rgba(248,245,240,1),
-        0 0 64px rgba(248,245,240,0.85),
-        0 2px 4px rgba(42,69,53,0.12);
+      text-shadow: 0 0 32px rgba(248,245,240,1), 0 0 64px rgba(248,245,240,0.85), 0 2px 4px rgba(42,69,53,0.12);
     }
     .hero-names em {
       font-family: var(--font-display);
@@ -163,7 +151,6 @@
       font-weight: 400;
       margin-inline: .2em;
     }
-
     .hero-date {
       font-size: clamp(.8rem, .65rem + .8vw, 1.05rem);
       color: var(--color-text-forest);
@@ -185,7 +172,6 @@
       flex-shrink: 0;
       opacity: .8;
     }
-
     .hero-message {
       max-width: 44ch;
       font-family: var(--font-display);
@@ -196,8 +182,6 @@
       font-weight: 500;
       text-shadow: 0 0 24px rgba(248,245,240,1), 0 0 48px rgba(248,245,240,0.7);
     }
-
-    /* Divisor floral */
     .divider-floral {
       text-align: center;
       color: var(--color-primary);
@@ -250,15 +234,35 @@
     }
     .gift-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
 
-    .gift-icon {
+    /* Imagen del regalo — 3:2 con fallback de color */
+    .gift-img-wrap {
       width: 100%;
       aspect-ratio: 3/2;
+      overflow: hidden;
+      background: var(--color-primary-light);
+      position: relative;
+    }
+    .gift-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 320ms ease;
+    }
+    .gift-card:hover .gift-img-wrap img { transform: scale(1.04); }
+
+    /* Fallback cuando la imagen no carga */
+    .gift-img-fallback {
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: clamp(2.5rem,6vw,4rem);
+      font-size: clamp(2.5rem,6vw,3.5rem);
       background: var(--color-primary-light);
+      z-index: 1;
     }
+    .gift-img-wrap img.loaded + .gift-img-fallback,
+    .gift-img-wrap img:not([src]) + .gift-img-fallback { display: none; }
 
     .gift-body {
       padding: var(--space-5);
@@ -267,7 +271,6 @@
       flex-direction: column;
       gap: var(--space-3);
     }
-
     .gift-title {
       font-family: var(--font-display);
       font-size: var(--text-xl);
@@ -281,7 +284,6 @@
       line-height: 1.6;
       flex: 1;
     }
-
     .gift-price-row {
       display: flex;
       align-items: center;
@@ -295,7 +297,6 @@
       font-weight: 500;
       color: var(--color-primary);
     }
-
     .btn-regalar {
       padding: var(--space-2) var(--space-6);
       border-radius: var(--radius-full);
@@ -307,21 +308,8 @@
       box-shadow: 0 2px 10px rgba(139,111,186,.28);
       transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
     }
-    .btn-regalar:hover { background: var(--color-primary-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(139,111,186,.38); }
+    .btn-regalar:hover  { background: var(--color-primary-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(139,111,186,.38); }
     .btn-regalar:active { transform: translateY(0); }
-
-    .gift-badge-gifted {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-1);
-      padding: var(--space-1) var(--space-3);
-      border-radius: var(--radius-full);
-      font-size: var(--text-xs);
-      font-weight: 500;
-      background: var(--color-surface-sage);
-      color: var(--color-sage);
-      border: 1px solid rgba(94,138,94,.2);
-    }
 
     /* ════════════════════════════════════════
        MODAL
@@ -370,8 +358,7 @@
     }
     .modal-close:hover { background: var(--color-primary-pale); color: var(--color-primary); }
 
-    /* Pasos del modal */
-    .modal-step { display: none; padding: var(--space-8) var(--space-8) var(--space-8); }
+    .modal-step { display: none; padding: var(--space-8); }
     .modal-step.active { display: block; }
 
     .modal-step-indicator {
@@ -415,7 +402,7 @@
       font-size: var(--text-lg);
       font-style: italic;
       color: var(--color-primary);
-      margin-bottom: var(--space-8);
+      margin-bottom: var(--space-6);
       border: 1px solid var(--color-primary-pale);
     }
 
@@ -426,11 +413,7 @@
       gap: var(--space-2);
       margin-bottom: var(--space-5);
     }
-    .form-group label {
-      font-size: var(--text-sm);
-      font-weight: 500;
-      color: var(--color-text-forest);
-    }
+    .form-group label { font-size: var(--text-sm); font-weight: 500; color: var(--color-text-forest); }
     .form-group input,
     .form-group textarea {
       padding: var(--space-3) var(--space-4);
@@ -452,11 +435,7 @@
     .form-group textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
     .form-group input::placeholder,
     .form-group textarea::placeholder { color: var(--color-text-faint); }
-    .form-error {
-      font-size: var(--text-xs);
-      color: #c0392b;
-      display: none;
-    }
+    .form-error { font-size: var(--text-xs); color: #c0392b; display: none; }
     .form-error.show { display: block; }
 
     /* Tabla bancaria */
@@ -479,12 +458,7 @@
     }
     .bank-table td:last-child { color: var(--color-text); font-weight: 500; }
 
-    .copy-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-3);
-    }
+    .copy-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
 
     .btn-copy {
       padding: var(--space-1) var(--space-3);
@@ -497,7 +471,7 @@
       transition: background 180ms ease, color 180ms ease;
       flex-shrink: 0;
     }
-    .btn-copy:hover { background: var(--color-primary-light); color: var(--color-primary); }
+    .btn-copy:hover  { background: var(--color-primary-light); color: var(--color-primary); }
     .btn-copy.copied { background: var(--color-sage-light); color: var(--color-sage); border-color: rgba(94,138,94,.3); }
 
     .amount-note {
@@ -512,11 +486,8 @@
     .amount-note strong { display: block; margin-bottom: var(--space-1); color: #3a2e20; }
 
     /* Pantalla gracias */
-    .thanks-screen {
-      text-align: center;
-      padding: var(--space-6) 0 var(--space-4);
-    }
-    .thanks-emoji { font-size: 3.5rem; margin-bottom: var(--space-5); display: block; }
+    .thanks-screen { text-align: center; padding: var(--space-6) 0 var(--space-4); }
+    .thanks-emoji  { font-size: 3.5rem; margin-bottom: var(--space-5); display: block; }
     .thanks-screen h3 {
       font-family: var(--font-display);
       font-size: var(--text-2xl);
@@ -533,7 +504,16 @@
     }
     .thanks-screen p { color: var(--color-text-muted); font-size: var(--text-sm); max-width: 34ch; margin-inline: auto; }
 
-    /* Botones de acción del modal */
+    /* Estado de envío */
+    .submit-status {
+      text-align: center;
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      min-height: 1.4em;
+      margin-top: var(--space-2);
+    }
+    .submit-status.error { color: #c0392b; }
+
     .btn-primary-full {
       width: 100%;
       padding: var(--space-4);
@@ -544,10 +524,11 @@
       font-weight: 500;
       letter-spacing: .04em;
       box-shadow: 0 2px 10px rgba(139,111,186,.28);
-      transition: background 180ms ease;
+      transition: background 180ms ease, opacity 180ms ease;
       margin-top: var(--space-3);
     }
-    .btn-primary-full:hover { background: var(--color-primary-hover); }
+    .btn-primary-full:hover    { background: var(--color-primary-hover); }
+    .btn-primary-full:disabled { opacity: .6; cursor: not-allowed; }
 
     .btn-secondary-full {
       width: 100%;
@@ -579,7 +560,7 @@
        RESPONSIVE
        ════════════════════════════════════════ */
     @media (max-width: 520px) {
-      .modal-step { padding: var(--space-6) var(--space-5); }
+      .modal-step  { padding: var(--space-6) var(--space-5); }
       .gifts-grid  { gap: var(--space-4); padding-bottom: var(--space-10); }
     }
   </style>
@@ -587,17 +568,9 @@
 <body>
 
   <!-- ════════════════════════════════════════════════════
-       HERO — imagen full-width
+       HERO
        ════════════════════════════════════════════════════ -->
   <header class="hero">
-    <!--
-      ╔═══════════════════════════════════════════╗
-      ║ FOTO: reemplaza src por tu imagen.        ║
-      ║ Sube la foto a ./assets/foto.jpg          ║
-      ║ y cambia la URL aquí abajo.               ║
-      ╚═══════════════════════════════════════════╝
-      Tamaño ideal: 1400 × 700 px (panorámica)
-    -->
     <img
       class="hero-bg"
       src="https://qzzhworyzlehdjopyqly.supabase.co/storage/v1/object/public/assets/hero.jpg"
@@ -610,22 +583,18 @@
 
     <div class="hero-content">
       <p class="hero-ornament">✦ Lista de Novios ✦</p>
-
       <h1 class="hero-names">Valeria <em>&amp;</em> Francesco</h1>
-
       <p class="hero-date">Sábado 10 · Oct 2026</p>
-
       <p class="hero-message">
         "Compartir este día contigo es nuestro mayor regalo.<br/>
         Si deseas hacernos un obsequio, aquí dejamos<br/>algunas ideas que nos harían muy felices."
       </p>
-
       <div class="divider-floral">✿ ✾ ✿</div>
     </div>
   </header>
 
   <!-- ════════════════════════════════════════════════════
-       SECCIÓN DE REGALOS
+       SECCIÓN REGALOS
        ════════════════════════════════════════════════════ -->
   <section aria-labelledby="gifts-heading">
     <div class="section-header">
@@ -634,97 +603,160 @@
          directamente. ¡Todo tu amor es bienvenido!</p>
     </div>
 
+    <!--
+      ╔══════════════════════════════════════════════════════════════╗
+      ║  IMÁGENES: sube cada foto a Supabase Storage → bucket assets ║
+      ║  con el nombre indicado en data-img-slug.                    ║
+      ║  Formato recomendado: JPG, 600×400 px mínimo.               ║
+      ╚══════════════════════════════════════════════════════════════╝
+    -->
     <div class="gifts-grid" id="giftsGrid">
 
-      <!-- ─── REGALO 1 ─── -->
-      <article class="gift-card" data-id="1" data-name="Luna de miel en Cartagena" data-price="1500000">
-        <div class="gift-icon">✈️</div>
+      <!-- REGALO 1 · slug: gift-cafe -->
+      <article class="gift-card"
+        data-id="1"
+        data-name="Salida a tomar café"
+        data-price="50000"
+        data-img-slug="gift-cafe">
+        <div class="gift-img-wrap">
+          <img src="" alt="Salida a tomar café" width="600" height="400" loading="lazy" />
+          <div class="gift-img-fallback" aria-hidden="true">☕</div>
+        </div>
         <div class="gift-body">
-          <h3 class="gift-title">Luna de miel en Cartagena</h3>
-          <p class="gift-desc">Sueñamos con unos días en las playas del Caribe. Cada aporte nos acerca más a este sueño compartido.</p>
+          <h3 class="gift-title">Salida a tomar café</h3>
+          <p class="gift-desc">Una tarde tranquila en nuestra cafetería favorita, disfrutando juntos sin apuro.</p>
           <div class="gift-price-row">
-            <span class="gift-price">$1.500.000</span>
+            <span class="gift-price">$50.000</span>
           </div>
         </div>
       </article>
 
-      <!-- ─── REGALO 2 ─── -->
-      <article class="gift-card" data-id="2" data-name="Cena romántica" data-price="80000">
-        <div class="gift-icon">🍷</div>
+      <!-- REGALO 2 · slug: gift-pilates -->
+      <article class="gift-card"
+        data-id="2"
+        data-name="1 Mes de Pilates"
+        data-price="100000"
+        data-img-slug="gift-pilates">
+        <div class="gift-img-wrap">
+          <img src="" alt="1 Mes de Pilates" width="600" height="400" loading="lazy" />
+          <div class="gift-img-fallback" aria-hidden="true">🧘</div>
+        </div>
         <div class="gift-body">
-          <h3 class="gift-title">Cena romántica</h3>
-          <p class="gift-desc">Una noche especial en ese restaurante que siempre hemos querido conocer juntos.</p>
+          <h3 class="gift-title">1 Mes de Pilates</h3>
+          <p class="gift-desc">Empezar el año de casados con movimiento y bienestar. Un mes de clases para ponerse al día.</p>
           <div class="gift-price-row">
-            <span class="gift-price">$80.000</span>
+            <span class="gift-price">$100.000</span>
           </div>
         </div>
       </article>
 
-      <!-- ─── REGALO 3 ─── -->
-      <article class="gift-card" data-id="3" data-name="Set de cocina premium" data-price="120000">
-        <div class="gift-icon">🍳</div>
+      <!-- REGALO 3 · slug: gift-ikea -->
+      <article class="gift-card"
+        data-id="3"
+        data-name="Salida al IKEA"
+        data-price="150000"
+        data-img-slug="gift-ikea">
+        <div class="gift-img-wrap">
+          <img src="" alt="Salida al IKEA" width="600" height="400" loading="lazy" />
+          <div class="gift-img-fallback" aria-hidden="true">🛋️</div>
+        </div>
         <div class="gift-body">
-          <h3 class="gift-title">Set de cocina premium</h3>
-          <p class="gift-desc">Nos encanta cocinar juntos. Un buen set de ollas para estrenar nuestra nueva cocina.</p>
+          <h3 class="gift-title">Salida al IKEA</h3>
+          <p class="gift-desc">La excursión obligada para armar nuestro nuevo hogar. Carrito lleno y mucha ilusión.</p>
           <div class="gift-price-row">
-            <span class="gift-price">$120.000</span>
+            <span class="gift-price">$150.000</span>
           </div>
         </div>
       </article>
 
-      <!-- ─── REGALO 4 ─── -->
-      <article class="gift-card" data-id="4" data-name="Noche en hotel boutique" data-price="250000">
-        <div class="gift-icon">🏨</div>
+      <!-- REGALO 4 · slug: gift-serena -->
+      <article class="gift-card"
+        data-id="4"
+        data-name="Viaje a La Serena"
+        data-price="250000"
+        data-img-slug="gift-serena">
+        <div class="gift-img-wrap">
+          <img src="" alt="Viaje a La Serena" width="600" height="400" loading="lazy" />
+          <div class="gift-img-fallback" aria-hidden="true">🌊</div>
+        </div>
         <div class="gift-body">
-          <h3 class="gift-title">Noche en hotel boutique</h3>
-          <p class="gift-desc">Una escapada de fin de semana para celebrar nuestro primer aniversario.</p>
+          <h3 class="gift-title">Viaje a La Serena</h3>
+          <p class="gift-desc">Escaparnos al norte chico, caminar por el borde costero y ver el cielo estrellado de Elqui.</p>
           <div class="gift-price-row">
             <span class="gift-price">$250.000</span>
           </div>
         </div>
       </article>
 
-      <!-- ─── REGALO 5 ─── -->
-      <article class="gift-card" data-id="5" data-name="Flores cada mes" data-price="45000">
-        <div class="gift-icon">🌸</div>
+      <!-- REGALO 5 · slug: gift-farellones -->
+      <article class="gift-card"
+        data-id="5"
+        data-name="Fin de semana en Farellones"
+        data-price="300000"
+        data-img-slug="gift-farellones">
+        <div class="gift-img-wrap">
+          <img src="" alt="Fin de semana en Farellones" width="600" height="400" loading="lazy" />
+          <div class="gift-img-fallback" aria-hidden="true">⛷️</div>
+        </div>
         <div class="gift-body">
-          <h3 class="gift-title">Flores cada mes</h3>
-          <p class="gift-desc">Una suscripción de flores por 3 meses para alegrar nuestro nuevo hogar.</p>
+          <h3 class="gift-title">Fin de semana en Farellones</h3>
+          <p class="gift-desc">Nieve, chocolate caliente y vistas a la cordillera. El plan perfecto para el primer invierno juntos.</p>
           <div class="gift-price-row">
-            <span class="gift-price">$45.000</span>
+            <span class="gift-price">$300.000</span>
           </div>
         </div>
       </article>
 
-      <!-- ─── REGALO 6 ─── -->
-      <article class="gift-card" data-id="6" data-name="Clase de baile" data-price="35000">
-        <div class="gift-icon">💃</div>
+      <!-- REGALO 6 · slug: gift-japon -->
+      <article class="gift-card"
+        data-id="6"
+        data-name="Viaje a Japón"
+        data-price="500000"
+        data-img-slug="gift-japon">
+        <div class="gift-img-wrap">
+          <img src="" alt="Viaje a Japón" width="600" height="400" loading="lazy" />
+          <div class="gift-img-fallback" aria-hidden="true">🗼</div>
+        </div>
         <div class="gift-body">
-          <h3 class="gift-title">Clase de baile</h3>
-          <p class="gift-desc">Queremos aprender a bailar juntos. Esas clases de salsa que hemos postergado.</p>
+          <h3 class="gift-title">Viaje a Japón</h3>
+          <p class="gift-desc">El viaje soñado. Tokio, Kioto, cerezos y ramen. Cada aporte nos acerca a esta aventura.</p>
           <div class="gift-price-row">
-            <span class="gift-price">$35.000</span>
+            <span class="gift-price">$500.000</span>
           </div>
         </div>
       </article>
 
-      <!-- ─── REGALO 7 ─── -->
-      <article class="gift-card" data-id="7" data-name="Paseo en velero" data-price="180000">
-        <div class="gift-icon">⛵</div>
+      <!-- REGALO 7 · slug: gift-cafetera -->
+      <article class="gift-card"
+        data-id="7"
+        data-name="Cafetera nueva para la casa"
+        data-price="1000000"
+        data-img-slug="gift-cafetera">
+        <div class="gift-img-wrap">
+          <img src="" alt="Cafetera nueva para la casa" width="600" height="400" loading="lazy" />
+          <div class="gift-img-fallback" aria-hidden="true">☕</div>
+        </div>
         <div class="gift-body">
-          <h3 class="gift-title">Paseo en velero</h3>
-          <p class="gift-desc">Un día en el mar, navegando juntos en la costa de Coquimbo.</p>
+          <h3 class="gift-title">Cafetera nueva para la casa</h3>
+          <p class="gift-desc">Empezar cada mañana con un buen café en casa. La cafetera que siempre hemos querido tener.</p>
           <div class="gift-price-row">
-            <span class="gift-price">$180.000</span>
+            <span class="gift-price">$1.000.000</span>
           </div>
         </div>
       </article>
 
-      <!-- ─── REGALO 8 ─── -->
-      <article class="gift-card" data-id="8" data-name="Tu libre elección" data-price="50000">
-        <div class="gift-icon">🎁</div>
+      <!-- REGALO 8 · slug: gift-libre -->
+      <article class="gift-card"
+        data-id="8"
+        data-name="Libre Elección"
+        data-price="0"
+        data-img-slug="gift-libre">
+        <div class="gift-img-wrap">
+          <img src="" alt="Libre Elección" width="600" height="400" loading="lazy" />
+          <div class="gift-img-fallback" aria-hidden="true">🎁</div>
+        </div>
         <div class="gift-body">
-          <h3 class="gift-title">Tu libre elección</h3>
+          <h3 class="gift-title">Libre Elección</h3>
           <p class="gift-desc">¿Tienes una idea propia? Transfiere lo que quieras y cuéntanos en el mensaje.</p>
           <div class="gift-price-row">
             <span class="gift-price">Lo que quieras</span>
@@ -742,12 +774,12 @@
     <div class="modal" id="modal">
       <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
 
-      <!-- Indicador de pasos -->
+      <!-- PASO 1 — Datos del invitado -->
       <div class="modal-step active" id="step1">
         <div class="modal-step-indicator" aria-hidden="true">
-          <div class="step-dot active" id="dot1"></div>
-          <div class="step-dot" id="dot2"></div>
-          <div class="step-dot" id="dot3"></div>
+          <div class="step-dot active"></div>
+          <div class="step-dot"></div>
+          <div class="step-dot"></div>
         </div>
 
         <div class="modal-emoji">💌</div>
@@ -756,7 +788,6 @@
 
         <div class="modal-gift-chip" id="giftChip1">Regalo</div>
 
-        <!-- FORMULARIO -->
         <div class="form-group">
           <label for="guestName">Tu nombre completo *</label>
           <input type="text" id="guestName" placeholder="Ej: María González" autocomplete="name" />
@@ -780,9 +811,9 @@
       <!-- PASO 2 — Datos bancarios -->
       <div class="modal-step" id="step2">
         <div class="modal-step-indicator" aria-hidden="true">
-          <div class="step-dot done" id="dot1b"></div>
-          <div class="step-dot active" id="dot2b"></div>
-          <div class="step-dot" id="dot3b"></div>
+          <div class="step-dot done"></div>
+          <div class="step-dot active"></div>
+          <div class="step-dot"></div>
         </div>
 
         <div class="modal-emoji">🏦</div>
@@ -791,35 +822,14 @@
 
         <div class="modal-gift-chip" id="giftChip2">Regalo</div>
 
-        <!-- ╔═══════════════════════════════════════════════╗ -->
-        <!-- ║  DATOS BANCARIOS — estos son los datos reales ║ -->
-        <!-- ╚═══════════════════════════════════════════════╝ -->
         <table class="bank-table">
           <tbody>
-            <tr>
-              <td>Titular</td>
-              <td><div class="copy-row"><span id="bNombre">Francesco Rigotti</span><button class="btn-copy" onclick="copyField('bNombre',this)">Copiar</button></div></td>
-            </tr>
-            <tr>
-              <td>RUT</td>
-              <td><div class="copy-row"><span id="bRut">19.659.825-1</span><button class="btn-copy" onclick="copyField('bRut',this)">Copiar</button></div></td>
-            </tr>
-            <tr>
-              <td>Banco</td>
-              <td><div class="copy-row"><span id="bBanco">Banco de Chile</span><button class="btn-copy" onclick="copyField('bBanco',this)">Copiar</button></div></td>
-            </tr>
-            <tr>
-              <td>Tipo de cuenta</td>
-              <td><div class="copy-row"><span id="bTipo">Cuenta Corriente</span><button class="btn-copy" onclick="copyField('bTipo',this)">Copiar</button></div></td>
-            </tr>
-            <tr>
-              <td>N° de cuenta</td>
-              <td><div class="copy-row"><span id="bCuenta">00-120-27173-07</span><button class="btn-copy" onclick="copyField('bCuenta',this)">Copiar</button></div></td>
-            </tr>
-            <tr>
-              <td>Email</td>
-              <td><div class="copy-row"><span id="bEmail">francesco.rigotti@hotmail.com</span><button class="btn-copy" onclick="copyField('bEmail',this)">Copiar</button></div></td>
-            </tr>
+            <tr><td>Titular</td>       <td><div class="copy-row"><span id="bNombre">Francesco Rigotti</span><button class="btn-copy" onclick="copyField('bNombre',this)">Copiar</button></div></td></tr>
+            <tr><td>RUT</td>            <td><div class="copy-row"><span id="bRut">19.659.825-1</span><button class="btn-copy" onclick="copyField('bRut',this)">Copiar</button></div></td></tr>
+            <tr><td>Banco</td>          <td><div class="copy-row"><span id="bBanco">Banco de Chile</span><button class="btn-copy" onclick="copyField('bBanco',this)">Copiar</button></div></td></tr>
+            <tr><td>Tipo de cuenta</td> <td><div class="copy-row"><span id="bTipo">Cuenta Corriente</span><button class="btn-copy" onclick="copyField('bTipo',this)">Copiar</button></div></td></tr>
+            <tr><td>N° de cuenta</td>   <td><div class="copy-row"><span id="bCuenta">00-120-27173-07</span><button class="btn-copy" onclick="copyField('bCuenta',this)">Copiar</button></div></td></tr>
+            <tr><td>Email</td>          <td><div class="copy-row"><span id="bEmail">francesco.rigotti@hotmail.com</span><button class="btn-copy" onclick="copyField('bEmail',this)">Copiar</button></div></td></tr>
           </tbody>
         </table>
 
@@ -833,7 +843,8 @@
           <button class="btn-copy" onclick="copyField('transferComment',this)">Copiar</button>
         </div>
 
-        <button class="btn-primary-full" onclick="goToStep3()">Ya realicé la transferencia ✓</button>
+        <button class="btn-primary-full" id="btnConfirm" onclick="goToStep3()">Ya realicé la transferencia ✓</button>
+        <div class="submit-status" id="submitStatus"></div>
         <button class="btn-secondary-full" onclick="goToStep1()">← Volver</button>
       </div>
 
@@ -862,56 +873,70 @@
        FOOTER
        ════════════════════════════════════════════════════ -->
   <footer>
-    <p>Hecho con <strong>❤</strong> para <strong>Valeria de Francesco · 10.10.2026</strong></p>
+    <p>Hecho con <strong>❤</strong> para <strong>Valeria &amp; Francesco · 10.10.2026</strong></p>
   </footer>
 
   <!-- ════════════════════════════════════════════════════
        JAVASCRIPT
        ════════════════════════════════════════════════════ -->
   <script>
-    // ── Estado ──────────────────────────────────────────────
-    let currentGiftName  = '';
-    let currentGiftPrice = 0;
+    /* ══════════════════════════════════════════════════════
+       CONFIGURACIÓN SUPABASE
+       ══════════════════════════════════════════════════════ */
+    const SUPABASE_URL    = 'https://qzzhworyzlehdjopyqly.supabase.co';
+    const SUPABASE_ANON   = 'TU_ANON_KEY_AQUI'; // ← reemplaza con tu anon key
+    const STORAGE_BUCKET  = 'assets';
+    const STORAGE_BASE    = `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}`;
 
-    // ── Inicializar tarjetas ─────────────────────────────────
+    /* ── Cargar imágenes desde Supabase Storage ─────────── */
     document.querySelectorAll('.gift-card').forEach(card => {
-      const isGifted = card.dataset.gifted === 'true';
-      const name     = card.dataset.name  || '';
-      const price    = parseInt(card.dataset.price) || 0;
-      const priceRow = card.querySelector('.gift-price-row');
-
-      if (isGifted) {
-        const badge = document.createElement('span');
-        badge.className   = 'gift-badge-gifted';
-        badge.textContent = '✓ Ya regalado';
-        priceRow.appendChild(badge);
-      } else {
-        const btn = document.createElement('button');
-        btn.className   = 'btn-regalar';
-        btn.textContent = 'Regalar 💜';
-        btn.addEventListener('click', () => openModal(name, price));
-        priceRow.appendChild(btn);
+      const slug = card.dataset.imgSlug;
+      const img  = card.querySelector('.gift-img-wrap img');
+      if (slug && img) {
+        img.src = `${STORAGE_BASE}/${slug}.jpg`;
+        img.onload  = () => img.classList.add('loaded');
+        img.onerror = () => { img.style.display = 'none'; }; // muestra fallback emoji
       }
     });
 
-    // ── Modal helpers ────────────────────────────────────────
+    /* ══════════════════════════════════════════════════════
+       ESTADO
+       ══════════════════════════════════════════════════════ */
+    let currentGiftId    = '';
+    let currentGiftName  = '';
+    let currentGiftPrice = 0;
+
+    /* ── Inicializar botones "Regalar" ──────────────────── */
+    document.querySelectorAll('.gift-card').forEach(card => {
+      const name  = card.dataset.name  || '';
+      const price = parseInt(card.dataset.price) || 0;
+      const id    = card.dataset.id    || '';
+      const priceRow = card.querySelector('.gift-price-row');
+
+      const btn = document.createElement('button');
+      btn.className   = 'btn-regalar';
+      btn.textContent = 'Regalar 💜';
+      btn.addEventListener('click', () => openModal(id, name, price));
+      priceRow.appendChild(btn);
+    });
+
+    /* ══════════════════════════════════════════════════════
+       MODAL
+       ══════════════════════════════════════════════════════ */
     const overlay = document.getElementById('modalOverlay');
 
-    function openModal(name, price) {
+    function openModal(id, name, price) {
+      currentGiftId    = id;
       currentGiftName  = name;
       currentGiftPrice = price;
 
-      // Rellenar chips
       document.getElementById('giftChip1').textContent = name;
       document.getElementById('giftChip2').textContent = name;
 
-      // Monto
       const priceLabel = price > 0
         ? '$' + price.toLocaleString('es-CL') + ' CLP'
         : 'Lo que quieras 💜';
       document.getElementById('amountDisplay').textContent = priceLabel;
-
-      // Comentario sugerido (se actualiza dinámicamente con el nombre)
       document.getElementById('transferComment').textContent = 'Regalo – ' + name;
 
       showStep(1);
@@ -922,23 +947,24 @@
     function closeModal() {
       overlay.classList.remove('is-open');
       document.body.style.overflow = '';
-      // Reset form
       setTimeout(() => {
         document.getElementById('guestName').value  = '';
         document.getElementById('guestEmail').value = '';
         document.getElementById('guestMsg').value   = '';
+        document.getElementById('submitStatus').textContent = '';
+        document.getElementById('submitStatus').className  = 'submit-status';
+        document.getElementById('btnConfirm').disabled = false;
         clearErrors();
         showStep(1);
       }, 300);
     }
 
     function showStep(n) {
-      [1,2,3].forEach(i => {
-        document.getElementById('step'+i).classList.toggle('active', i === n);
-      });
+      [1,2,3].forEach(i =>
+        document.getElementById('step'+i).classList.toggle('active', i === n)
+      );
     }
 
-    // ── Validación paso 1 ────────────────────────────────────
     function clearErrors() {
       document.getElementById('errorName').classList.remove('show');
       document.getElementById('errorEmail').classList.remove('show');
@@ -948,35 +974,67 @@
 
     function goToStep2() {
       clearErrors();
-      const name  = document.getElementById('guestName').value.trim();
-      const email = document.getElementById('guestEmail').value.trim();
+      const name    = document.getElementById('guestName').value.trim();
+      const email   = document.getElementById('guestEmail').value.trim();
       const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       let ok = true;
-
-      if (!name) {
-        document.getElementById('errorName').classList.add('show');
-        ok = false;
-      }
-      if (!emailOk) {
-        document.getElementById('errorEmail').classList.add('show');
-        ok = false;
-      }
+      if (!name)    { document.getElementById('errorName').classList.add('show');  ok = false; }
+      if (!emailOk) { document.getElementById('errorEmail').classList.add('show'); ok = false; }
       if (!ok) return;
 
-      // Actualizar comentario de transferencia con nombre real
       const comment = name + ' – ' + currentGiftName;
       document.getElementById('transferComment').textContent = comment;
-
       showStep(2);
     }
 
-    function goToStep3() {
-      const name = document.getElementById('guestName').value.trim();
-      document.getElementById('thanksGuestName').textContent = name;
-      showStep(3);
+    /* ── Guardar confirmación en Supabase y pasar a paso 3 ─ */
+    async function goToStep3() {
+      const btn    = document.getElementById('btnConfirm');
+      const status = document.getElementById('submitStatus');
+      const name   = document.getElementById('guestName').value.trim();
+      const email  = document.getElementById('guestEmail').value.trim();
+      const msg    = document.getElementById('guestMsg').value.trim();
+
+      btn.disabled = true;
+      status.textContent = 'Guardando…';
+      status.className   = 'submit-status';
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/confirmaciones`, {
+          method:  'POST',
+          headers: {
+            'Content-Type':  'application/json',
+            'apikey':        SUPABASE_ANON,
+            'Authorization': 'Bearer ' + SUPABASE_ANON,
+            'Prefer':        'return=minimal'
+          },
+          body: JSON.stringify({
+            regalo_id:      currentGiftId,
+            regalo_nombre:  currentGiftName,
+            regalo_precio:  currentGiftPrice,
+            invitado_nombre: name,
+            invitado_email:  email,
+            mensaje:         msg || null
+          })
+        });
+
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+
+        document.getElementById('thanksGuestName').textContent = name;
+        showStep(3);
+      } catch (err) {
+        status.textContent = '⚠️ No pudimos guardar el registro, pero no te preocupes — ¡nos llegará la transferencia igual!';
+        status.className   = 'submit-status error';
+        btn.disabled = false;
+        // Igual avanzamos al paso 3 tras 2s para no bloquear la experiencia
+        setTimeout(() => {
+          document.getElementById('thanksGuestName').textContent = name;
+          showStep(3);
+        }, 2000);
+      }
     }
 
-    // ── Copiar campo ─────────────────────────────────────────
+    /* ── Copiar campo ────────────────────────────────────── */
     function copyField(id, btn) {
       const text = document.getElementById(id).textContent.trim();
       navigator.clipboard.writeText(text).then(() => {
@@ -985,22 +1043,16 @@
         btn.classList.add('copied');
         setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2200);
       }).catch(() => {
-        // Fallback para navegadores sin permiso
         const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity  = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
         document.body.removeChild(ta);
-        btn.textContent = '✓ Copiado';
-        btn.classList.add('copied');
+        btn.textContent = '✓ Copiado'; btn.classList.add('copied');
         setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2200);
       });
     }
 
-    // ── Cerrar con Escape / clic fuera ───────────────────────
+    /* ── Cerrar con Escape / clic fuera ─────────────────── */
     document.getElementById('modalClose').addEventListener('click', closeModal);
     overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
