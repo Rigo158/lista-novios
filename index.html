@@ -895,7 +895,7 @@
        CONFIGURACIÓN SUPABASE
        ══════════════════════════════════════════════════════ */
     const SUPABASE_URL    = 'https://qzzhworyzlehdjopyqly.supabase.co';
-    const SUPABASE_ANON   = 'SUPABASE_ANON_KEY_PLACEHOLDER'; // ← reemplazar con anon key real
+    const SUPABASE_ANON   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6emh3b3J5emxlaGRqb3B5cWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNTk2NTAsImV4cCI6MjA5MjYzNTY1MH0.g4OBkUnIAP22_ki-5ynj13aom6zCk1AWNUH0VefWAgQ';
     const STORAGE_BUCKET  = 'assets';
     const STORAGE_BASE    = `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}`;
 
@@ -906,7 +906,7 @@
       if (slug && img) {
         img.src = `${STORAGE_BASE}/${slug}.jpg`;
         img.onload  = () => img.classList.add('loaded');
-        img.onerror = () => { img.style.display = 'none'; }; // muestra fallback emoji
+        img.onerror = () => { img.style.display = 'none'; };
       }
     });
 
@@ -1020,24 +1020,30 @@
             'Prefer':        'return=minimal'
           },
           body: JSON.stringify({
-            regalo_id:      currentGiftId,
-            regalo_nombre:  currentGiftName,
-            regalo_precio:  currentGiftPrice,
-            invitado_nombre: name,
-            invitado_email:  email,
+            regalo_id:     currentGiftId,
+            regalo_nombre: currentGiftName,
+            monto:         currentGiftPrice,
+            nombre_invitado: name,
+            email_invitado:  email,
             mensaje:         msg || null
           })
         });
 
-        if (!res.ok) throw new Error('HTTP ' + res.status);
+        if (!res.ok) {
+          const err = await res.text();
+          throw new Error(err);
+        }
 
         document.getElementById('thanksGuestName').textContent = name;
         showStep(3);
-      } catch (err) {
-        status.textContent = '⚠️ No pudimos guardar el registro, pero no te preocupes — ¡nos llegará la transferencia igual!';
+
+      } catch (e) {
+        console.error('Supabase error:', e);
+        status.textContent = 'Hubo un problema al guardar. Puedes continuar igual, ¡gracias!';
         status.className   = 'submit-status error';
         btn.disabled = false;
-        // Igual avanzamos al paso 3 tras 2s para no bloquear la experiencia
+
+        // Avanzar de todas formas después de 2 s
         setTimeout(() => {
           document.getElementById('thanksGuestName').textContent = name;
           showStep(3);
@@ -1045,29 +1051,23 @@
       }
     }
 
-    /* ── Copiar campo ────────────────────────────────────── */
+    /* ── Copiar al portapapeles ──────────────────────────── */
     function copyField(id, btn) {
       const text = document.getElementById(id).textContent.trim();
       navigator.clipboard.writeText(text).then(() => {
-        const orig = btn.textContent;
         btn.textContent = '✓ Copiado';
         btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2200);
-      }).catch(() => {
-        const ta = document.createElement('textarea');
-        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
-        document.body.removeChild(ta);
-        btn.textContent = '✓ Copiado'; btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2200);
+        setTimeout(() => {
+          btn.textContent = 'Copiar';
+          btn.classList.remove('copied');
+        }, 2000);
       });
     }
 
-    /* ── Cerrar con Escape / clic fuera ─────────────────── */
+    /* ── Cerrar modal al hacer clic fuera ───────────────── */
     document.getElementById('modalClose').addEventListener('click', closeModal);
     overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
   </script>
-
 </body>
 </html>
