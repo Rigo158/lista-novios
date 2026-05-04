@@ -231,8 +231,34 @@
       display: flex;
       flex-direction: column;
       transition: box-shadow 180ms ease, transform 180ms ease;
+      position: relative;
     }
     .gift-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+    /* Badge "Ya regalado" */
+    .gift-badge-gifted {
+      display: none;
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      background: var(--color-sage);
+      color: #fff;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(94,138,94,.35);
+    }
+    .gift-card.is-gifted .gift-badge-gifted { display: block; }
+    .gift-card.is-gifted { opacity: .75; }
+    .gift-card.is-gifted .btn-regalar {
+      background: var(--color-text-faint);
+      box-shadow: none;
+      cursor: default;
+      pointer-events: none;
+    }
 
     /* Imagen del regalo — 3:2 con fallback de color */
     .gift-img-wrap {
@@ -310,6 +336,29 @@
     }
     .btn-regalar:hover  { background: var(--color-primary-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(139,111,186,.38); }
     .btn-regalar:active { transform: translateY(0); }
+
+    /* ════════════════════════════════════════
+       BANNER DE CARGA
+       ════════════════════════════════════════ */
+    .loading-banner {
+      text-align: center;
+      padding: var(--space-4);
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+    }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid var(--color-divider);
+      border-top-color: var(--color-primary);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ════════════════════════════════════════
        MODAL
@@ -603,32 +652,22 @@
          directamente. ¡Todo tu amor es bienvenido!</p>
     </div>
 
-    <!--
-      ╔══════════════════════════════════════════════════════════════════╗
-      ║  IMÁGENES: sube cada foto a Supabase Storage → bucket "assets"  ║
-      ║  con el nombre del slug indicado en data-img-slug + ".jpg"      ║
-      ║                                                                  ║
-      ║  Slugs disponibles:                                              ║
-      ║    gift-cafe        → Salida a tomar café                       ║
-      ║    gift-pilates     → 1 Mes de Pilates                          ║
-      ║    gift-ikea        → Salida al IKEA                            ║
-      ║    gift-serena      → Viaje a La Serena                         ║
-      ║    gift-farellones  → Fin de semana en Farellones               ║
-      ║    gift-japon       → Viaje a Japón                             ║
-      ║    gift-cafetera    → Cafetera nueva para la casa               ║
-      ║    gift-libre       → Libre Elección                            ║
-      ║                                                                  ║
-      ║  Formato recomendado: JPG, 600×400 px mínimo.                   ║
-      ╚══════════════════════════════════════════════════════════════════╝
-    -->
+    <!-- Banner de carga -->
+    <div class="loading-banner" id="loadingBanner">
+      <div class="spinner"></div>
+      <span>Cargando regalos…</span>
+    </div>
+
     <div class="gifts-grid" id="giftsGrid">
 
-      <!-- REGALO 1 · slug: gift-cafe -->
+      <!-- REGALO 1 -->
       <article class="gift-card"
-        data-id="1"
+        data-id="gift-cafe"
         data-name="Salida a tomar café"
         data-price="50000"
-        data-img-slug="gift-cafe">
+        data-img-slug="gift-cafe"
+        data-emoji="☕">
+        <div class="gift-badge-gifted">✓ Ya regalado</div>
         <div class="gift-img-wrap">
           <img src="" alt="Salida a tomar café" width="600" height="400" loading="lazy" />
           <div class="gift-img-fallback" aria-hidden="true">☕</div>
@@ -642,12 +681,14 @@
         </div>
       </article>
 
-      <!-- REGALO 2 · slug: gift-pilates -->
+      <!-- REGALO 2 -->
       <article class="gift-card"
-        data-id="2"
+        data-id="gift-pilates"
         data-name="1 Mes de Pilates"
         data-price="100000"
-        data-img-slug="gift-pilates">
+        data-img-slug="gift-pilates"
+        data-emoji="🧘">
+        <div class="gift-badge-gifted">✓ Ya regalado</div>
         <div class="gift-img-wrap">
           <img src="" alt="1 Mes de Pilates" width="600" height="400" loading="lazy" />
           <div class="gift-img-fallback" aria-hidden="true">🧘</div>
@@ -661,12 +702,14 @@
         </div>
       </article>
 
-      <!-- REGALO 3 · slug: gift-ikea -->
+      <!-- REGALO 3 -->
       <article class="gift-card"
-        data-id="3"
+        data-id="gift-ikea"
         data-name="Salida al IKEA"
         data-price="150000"
-        data-img-slug="gift-ikea">
+        data-img-slug="gift-ikea"
+        data-emoji="🛋️">
+        <div class="gift-badge-gifted">✓ Ya regalado</div>
         <div class="gift-img-wrap">
           <img src="" alt="Salida al IKEA" width="600" height="400" loading="lazy" />
           <div class="gift-img-fallback" aria-hidden="true">🛋️</div>
@@ -680,12 +723,14 @@
         </div>
       </article>
 
-      <!-- REGALO 4 · slug: gift-serena -->
+      <!-- REGALO 4 -->
       <article class="gift-card"
-        data-id="4"
+        data-id="gift-serena"
         data-name="Viaje a La Serena"
         data-price="250000"
-        data-img-slug="gift-serena">
+        data-img-slug="gift-serena"
+        data-emoji="🌊">
+        <div class="gift-badge-gifted">✓ Ya regalado</div>
         <div class="gift-img-wrap">
           <img src="" alt="Viaje a La Serena" width="600" height="400" loading="lazy" />
           <div class="gift-img-fallback" aria-hidden="true">🌊</div>
@@ -699,12 +744,14 @@
         </div>
       </article>
 
-      <!-- REGALO 5 · slug: gift-farellones -->
+      <!-- REGALO 5 -->
       <article class="gift-card"
-        data-id="5"
+        data-id="gift-farellones"
         data-name="Fin de semana en Farellones"
         data-price="300000"
-        data-img-slug="gift-farellones">
+        data-img-slug="gift-farellones"
+        data-emoji="⛷️">
+        <div class="gift-badge-gifted">✓ Ya regalado</div>
         <div class="gift-img-wrap">
           <img src="" alt="Fin de semana en Farellones" width="600" height="400" loading="lazy" />
           <div class="gift-img-fallback" aria-hidden="true">⛷️</div>
@@ -718,12 +765,14 @@
         </div>
       </article>
 
-      <!-- REGALO 6 · slug: gift-japon -->
+      <!-- REGALO 6 -->
       <article class="gift-card"
-        data-id="6"
+        data-id="gift-japon"
         data-name="Viaje a Japón"
         data-price="500000"
-        data-img-slug="gift-japon">
+        data-img-slug="gift-japon"
+        data-emoji="🗼">
+        <div class="gift-badge-gifted">✓ Ya regalado</div>
         <div class="gift-img-wrap">
           <img src="" alt="Viaje a Japón" width="600" height="400" loading="lazy" />
           <div class="gift-img-fallback" aria-hidden="true">🗼</div>
@@ -737,12 +786,14 @@
         </div>
       </article>
 
-      <!-- REGALO 7 · slug: gift-cafetera -->
+      <!-- REGALO 7 -->
       <article class="gift-card"
-        data-id="7"
+        data-id="gift-cafetera"
         data-name="Cafetera nueva para la casa"
         data-price="1000000"
-        data-img-slug="gift-cafetera">
+        data-img-slug="gift-cafetera"
+        data-emoji="☕">
+        <div class="gift-badge-gifted">✓ Ya regalado</div>
         <div class="gift-img-wrap">
           <img src="" alt="Cafetera nueva para la casa" width="600" height="400" loading="lazy" />
           <div class="gift-img-fallback" aria-hidden="true">☕</div>
@@ -756,12 +807,14 @@
         </div>
       </article>
 
-      <!-- REGALO 8 · slug: gift-libre -->
+      <!-- REGALO 8 — Libre Elección (siempre disponible) -->
       <article class="gift-card"
-        data-id="8"
+        data-id="gift-libre"
         data-name="Libre Elección"
         data-price="0"
-        data-img-slug="gift-libre">
+        data-img-slug="gift-libre"
+        data-emoji="🎁"
+        data-always-open="true">
         <div class="gift-img-wrap">
           <img src="" alt="Libre Elección" width="600" height="400" loading="lazy" />
           <div class="gift-img-fallback" aria-hidden="true">🎁</div>
@@ -894,42 +947,88 @@
     /* ══════════════════════════════════════════════════════
        CONFIGURACIÓN SUPABASE
        ══════════════════════════════════════════════════════ */
-    const SUPABASE_URL    = 'https://qzzhworyzlehdjopyqly.supabase.co';
-    const SUPABASE_ANON   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6emh3b3J5emxlaGRqb3B5cWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNTk2NTAsImV4cCI6MjA5MjYzNTY1MH0.g4OBkUnIAP22_ki-5ynj13aom6zCk1AWNUH0VefWAgQ';
-    const STORAGE_BUCKET  = 'assets';
-    const STORAGE_BASE    = `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}`;
+    const SUPABASE_URL   = 'https://qzzhworyzlehdjopyqly.supabase.co';
+    const SUPABASE_ANON  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6emh3b3J5emxlaGRqb3B5cWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNTk2NTAsImV4cCI6MjA5MjYzNTY1MH0.g4OBkUnIAP22_ki-5ynj13aom6zCk1AWNUH0VefWAgQ';
+    const STORAGE_BUCKET = 'assets';
+    const STORAGE_BASE   = `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}`;
 
-    /* ── Cargar imágenes desde Supabase Storage ─────────── */
-    document.querySelectorAll('.gift-card').forEach(card => {
-      const slug = card.dataset.imgSlug;
-      const img  = card.querySelector('.gift-img-wrap img');
-      if (slug && img) {
-        img.src = `${STORAGE_BASE}/${slug}.jpg`;
-        img.onload  = () => img.classList.add('loaded');
-        img.onerror = () => { img.style.display = 'none'; };
+    /* ── Headers comunes Supabase ────────────────────────── */
+    const sbHeaders = {
+      'Content-Type':  'application/json',
+      'apikey':        SUPABASE_ANON,
+      'Authorization': 'Bearer ' + SUPABASE_ANON
+    };
+
+    /* ════════════════════════════════════════════════════════
+       INICIALIZACIÓN: imágenes + estado regalos desde Supabase
+       ════════════════════════════════════════════════════════ */
+    async function initGifts() {
+      // 1. Cargar imágenes desde Supabase Storage
+      document.querySelectorAll('.gift-card').forEach(card => {
+        const slug = card.dataset.imgSlug;
+        const img  = card.querySelector('.gift-img-wrap img');
+        if (slug && img) {
+          img.src = `${STORAGE_BASE}/${slug}.jpg`;
+          img.onload  = () => img.classList.add('loaded');
+          img.onerror = () => { img.style.display = 'none'; };
+        }
+      });
+
+      // 2. Leer confirmaciones desde Supabase para marcar regalos tomados
+      try {
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/confirmaciones?select=regalo_id`,
+          { headers: { ...sbHeaders, 'Accept': 'application/json' } }
+        );
+
+        if (res.ok) {
+          const data = await res.json();
+          // Agrupar: contar cuántas confirmaciones hay por regalo_id
+          const counts = {};
+          data.forEach(r => { counts[r.regalo_id] = (counts[r.regalo_id] || 0) + 1; });
+
+          document.querySelectorAll('.gift-card').forEach(card => {
+            const id         = card.dataset.id;
+            const alwaysOpen = card.dataset.alwaysOpen === 'true';
+            if (!alwaysOpen && counts[id] > 0) {
+              card.classList.add('is-gifted');
+            }
+          });
+        }
+      } catch (e) {
+        console.warn('No se pudo leer el estado de regalos:', e);
       }
-    });
+
+      // 3. Inicializar botones "Regalar"
+      document.querySelectorAll('.gift-card').forEach(card => {
+        const name  = card.dataset.name  || '';
+        const price = parseInt(card.dataset.price) || 0;
+        const id    = card.dataset.id    || '';
+        const priceRow = card.querySelector('.gift-price-row');
+
+        const btn = document.createElement('button');
+        btn.className   = 'btn-regalar';
+        btn.textContent = 'Regalar 💜';
+        btn.addEventListener('click', () => {
+          if (!card.classList.contains('is-gifted')) {
+            openModal(id, name, price);
+          }
+        });
+        priceRow.appendChild(btn);
+      });
+
+      // Ocultar banner de carga
+      document.getElementById('loadingBanner').style.display = 'none';
+    }
+
+    initGifts();
 
     /* ══════════════════════════════════════════════════════
-       ESTADO
+       ESTADO DEL MODAL
        ══════════════════════════════════════════════════════ */
     let currentGiftId    = '';
     let currentGiftName  = '';
     let currentGiftPrice = 0;
-
-    /* ── Inicializar botones "Regalar" ──────────────────── */
-    document.querySelectorAll('.gift-card').forEach(card => {
-      const name  = card.dataset.name  || '';
-      const price = parseInt(card.dataset.price) || 0;
-      const id    = card.dataset.id    || '';
-      const priceRow = card.querySelector('.gift-price-row');
-
-      const btn = document.createElement('button');
-      btn.className   = 'btn-regalar';
-      btn.textContent = 'Regalar 💜';
-      btn.addEventListener('click', () => openModal(id, name, price));
-      priceRow.appendChild(btn);
-    });
 
     /* ══════════════════════════════════════════════════════
        MODAL
@@ -1013,16 +1112,11 @@
       try {
         const res = await fetch(`${SUPABASE_URL}/rest/v1/confirmaciones`, {
           method:  'POST',
-          headers: {
-            'Content-Type':  'application/json',
-            'apikey':        SUPABASE_ANON,
-            'Authorization': 'Bearer ' + SUPABASE_ANON,
-            'Prefer':        'return=minimal'
-          },
+          headers: { ...sbHeaders, 'Prefer': 'return=minimal' },
           body: JSON.stringify({
-            regalo_id:     currentGiftId,
-            regalo_nombre: currentGiftName,
-            monto:         currentGiftPrice,
+            regalo_id:       currentGiftId,
+            regalo_nombre:   currentGiftName,
+            monto:           currentGiftPrice,
             nombre_invitado: name,
             email_invitado:  email,
             mensaje:         msg || null
@@ -1032,6 +1126,12 @@
         if (!res.ok) {
           const err = await res.text();
           throw new Error(err);
+        }
+
+        // Marcar tarjeta como regalada (excepto Libre Elección)
+        const card = document.querySelector(`.gift-card[data-id="${currentGiftId}"]`);
+        if (card && card.dataset.alwaysOpen !== 'true') {
+          card.classList.add('is-gifted');
         }
 
         document.getElementById('thanksGuestName').textContent = name;
