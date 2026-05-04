@@ -604,11 +604,22 @@
     </div>
 
     <!--
-      ╔══════════════════════════════════════════════════════════════╗
-      ║  IMÁGENES: sube cada foto a Supabase Storage → bucket assets ║
-      ║  con el nombre indicado en data-img-slug.                    ║
-      ║  Formato recomendado: JPG, 600×400 px mínimo.               ║
-      ╚══════════════════════════════════════════════════════════════╝
+      ╔══════════════════════════════════════════════════════════════════╗
+      ║  IMÁGENES: sube cada foto a Supabase Storage → bucket "assets"  ║
+      ║  con el nombre del slug indicado en data-img-slug + ".jpg"      ║
+      ║                                                                  ║
+      ║  Slugs disponibles:                                              ║
+      ║    gift-cafe        → Salida a tomar café                       ║
+      ║    gift-pilates     → 1 Mes de Pilates                          ║
+      ║    gift-ikea        → Salida al IKEA                            ║
+      ║    gift-serena      → Viaje a La Serena                         ║
+      ║    gift-farellones  → Fin de semana en Farellones               ║
+      ║    gift-japon       → Viaje a Japón                             ║
+      ║    gift-cafetera    → Cafetera nueva para la casa               ║
+      ║    gift-libre       → Libre Elección                            ║
+      ║                                                                  ║
+      ║  Formato recomendado: JPG, 600×400 px mínimo.                   ║
+      ╚══════════════════════════════════════════════════════════════════╝
     -->
     <div class="gifts-grid" id="giftsGrid">
 
@@ -884,7 +895,7 @@
        CONFIGURACIÓN SUPABASE
        ══════════════════════════════════════════════════════ */
     const SUPABASE_URL    = 'https://qzzhworyzlehdjopyqly.supabase.co';
-    const SUPABASE_ANON   = 'TU_ANON_KEY_AQUI'; // ← reemplaza con tu anon key
+    const SUPABASE_ANON   = 'SUPABASE_ANON_KEY_PLACEHOLDER'; // ← reemplazar con anon key real
     const STORAGE_BUCKET  = 'assets';
     const STORAGE_BASE    = `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}`;
 
