@@ -16,6 +16,358 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── UBICACIÓN: DOS LUGARES ────────────────────────── */
+    .location-places {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      margin-top: var(--space-2);
+    }
+    @media (max-width: 680px) {
+      .location-places { grid-template-columns: 1fr; }
+    }
+    .location-place-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .location-place-badge {
+      background: var(--color-primary);
+      color: #fff;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: var(--space-2) var(--space-4);
+      text-align: center;
+    }
+    .location-place-badge.secondary {
+      background: var(--color-sage);
+    }
+    .location-place-map {
+      width: 100%;
+      height: clamp(200px, 28vw, 280px);
+      border: none;
+      display: block;
+    }
+    .location-place-details {
+      padding: var(--space-5) var(--space-5) var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      flex: 1;
+    }
+    .location-place-name {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 500;
+      color: var(--color-text-forest);
+      line-height: 1.2;
+    }
+    .location-place-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    .location-place-info span {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+    .location-place-info strong {
+      color: var(--color-text-forest);
+    }
+    .location-place-cta {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-divider);
+      margin-top: auto;
+    }
+    .btn-maps-sm, .btn-waze-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 180ms ease, transform 180ms ease;
+      flex: 1;
+      justify-content: center;
+    }
+    .btn-maps-sm {
+      background: var(--color-primary);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(139,111,186,.25);
+    }
+    .btn-maps-sm:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
+    .btn-waze-sm {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+    }
+    .btn-waze-sm:hover { background: var(--color-surface-2); color: var(--color-primary); }
+
+    /* ── CONFIRMACIÓN ───────────────────────────────────── */
+    .confirm-section {
+      padding: var(--space-12) var(--space-4) var(--space-10);
+      background: var(--color-primary-light);
+      text-align: center;
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .confirm-inner {
+      max-width: 600px;
+      margin-inline: auto;
+    }
+    .confirm-section .section-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      color: var(--color-taupe);
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      font-weight: 600;
+      display: block;
+      margin-bottom: var(--space-3);
+    }
+    .confirm-section h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 400;
+      color: var(--color-text-forest);
+      margin-bottom: var(--space-3);
+    }
+    .confirm-section p {
+      color: var(--color-text-muted);
+      font-size: var(--text-base);
+      margin-bottom: var(--space-8);
+      max-width: 44ch;
+      margin-inline: auto;
+      margin-bottom: var(--space-8);
+    }
+    .btn-confirm-attend {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-4) var(--space-10);
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: #fff;
+      font-size: var(--text-base);
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: .03em;
+      box-shadow: 0 4px 20px rgba(139,111,186,.35);
+      transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+    .btn-confirm-attend:hover {
+      background: var(--color-primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(139,111,186,.45);
+    }
+    .btn-confirm-attend:active { transform: translateY(0); }
+    .btn-confirm-attend .btn-icon { font-size: 1.2em; }
+
+    /* ── CRONOGRAMA ─────────────────────────────────────── */
+    .schedule-section {
+      padding: var(--space-12) var(--space-4) var(--space-10);
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .schedule-inner {
+      max-width: 640px;
+      margin-inline: auto;
+    }
+    .schedule-section .section-header {
+      text-align: center;
+      margin-bottom: var(--space-10);
+    }
+    .schedule-section .section-header .section-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      color: var(--color-taupe);
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      font-weight: 600;
+      display: block;
+      margin-bottom: var(--space-3);
+    }
+    .schedule-section .section-header h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 400;
+      color: var(--color-text-forest);
+    }
+    .schedule-timeline {
+      position: relative;
+      padding-left: var(--space-10);
+    }
+    .schedule-timeline::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--color-primary-pale), var(--color-primary), var(--color-primary-pale));
+      border-radius: 2px;
+    }
+    .schedule-item {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-5);
+      margin-bottom: var(--space-8);
+    }
+    .schedule-item:last-child { margin-bottom: 0; }
+    .schedule-dot-wrap {
+      position: absolute;
+      left: calc(-1 * var(--space-10) + var(--space-1));
+      top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+    }
+    .schedule-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 3px solid var(--color-bg);
+      box-shadow: 0 0 0 2px var(--color-primary);
+      flex-shrink: 0;
+    }
+    .schedule-emoji {
+      font-size: 1.5rem;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .schedule-content {
+      flex: 1;
+    }
+    .schedule-time {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .schedule-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 500;
+      color: var(--color-text-forest);
+      margin-bottom: 2px;
+      line-height: 1.25;
+    }
+    .schedule-sub {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    /* ── RECOMENDACIONES ────────────────────────────────── */
+    .reco-section {
+      padding: var(--space-12) var(--space-4) var(--space-10);
+      background: var(--color-surface-sage);
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .reco-inner {
+      max-width: 820px;
+      margin-inline: auto;
+    }
+    .reco-section .section-header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+    .reco-section .section-header .section-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      color: var(--color-taupe);
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      font-weight: 600;
+      display: block;
+      margin-bottom: var(--space-3);
+    }
+    .reco-section .section-header h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 400;
+      color: var(--color-text-forest);
+      margin-bottom: var(--space-3);
+    }
+    .reco-section .section-header p {
+      color: var(--color-text-muted);
+      max-width: 44ch;
+      margin-inline: auto;
+    }
+    .reco-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+    }
+    @media (max-width: 580px) {
+      .reco-grid { grid-template-columns: 1fr; }
+    }
+    .reco-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6) var(--space-6);
+      box-shadow: var(--shadow-sm);
+    }
+    .reco-card-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+    .reco-card-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+    .reco-card-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 500;
+      color: var(--color-text-forest);
+    }
+    .reco-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .reco-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    .reco-list li::before {
+      content: '✗';
+      color: #c07aaa;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .reco-list.check li::before {
+      content: '✓';
+      color: var(--color-sage);
+    }
+  </style>
 </head>
 <body>
 
@@ -46,61 +398,86 @@
   </header>
 
   <!-- ════════════════════════════════════════════════════
-       SECCIÓN UBICACIÓN
+       SECCIÓN UBICACIÓN — DOS LUGARES
        ════════════════════════════════════════════════════ -->
   <section class="location-section" aria-labelledby="location-heading">
     <div class="location-inner">
       <div class="location-header">
         <span class="section-label">✦ Dónde celebramos ✦</span>
         <h2 id="location-heading">Cómo llegar</h2>
-        <p>El evento se realiza en La Serena. Aquí tienes todo lo que necesitas para encontrarnos.</p>
+        <p>El matrimonio se realizará en Vicuña. Aquí tienes todo lo que necesitas para encontrarnos.</p>
       </div>
 
-      <div class="location-card">
-        <!-- Mapa embebido de Google Maps -->
-        <iframe
-          class="location-map"
-          title="Ubicación del evento"
-          src="https://www.google.com/maps/embed?pb=!3m2!1ses!2scl!4v1!6m8!1m7!1swjm7WKjQQNCpU6WcygoZtQ!2m2!1d-30.0342991!2d-70.7453859!3f179.66!4f10.99!5f0.7820865974627469"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+      <div class="location-places">
 
-        <div class="location-details">
-          <div class="location-info">
-            <div class="location-info-icon">📍</div>
-            <span class="location-info-label">Dirección</span>
-            <span class="location-info-value">La Serena, Coquimbo</span>
-            <span class="location-info-sub">Región de Coquimbo, Chile</span>
-          </div>
-
-          <div class="location-info">
-            <div class="location-info-icon">📅</div>
-            <span class="location-info-label">Fecha y hora</span>
-            <span class="location-info-value">Sábado 10 de Octubre 2026</span>
-            <span class="location-info-sub">La hora se confirmará próximamente</span>
-          </div>
-
-          <div class="location-cta">
-            <a
-              href="https://www.google.com/maps/dir/?api=1&destination=-30.0342991,-70.7453859"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-maps"
-              aria-label="Abrir ruta en Google Maps">
-              🗺️ Ir con Google Maps
-            </a>
-            <a
-              href="https://waze.com/ul?ll=-30.0342991,-70.7453859&navigate=yes"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-waze"
-              aria-label="Abrir ruta en Waze">
-              🚗 Abrir en Waze
-            </a>
+        <!-- LUGAR 1: IGLESIA -->
+        <div class="location-place-card">
+          <div class="location-place-badge">⛪ Ceremonia Religiosa · 15:00 hrs</div>
+          <iframe
+            class="location-place-map"
+            title="Iglesia de Vicuña"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3361.3!2d-70.7064!3d-30.0317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9691c1c4b1b1b1b1%3A0x1!2sParroquia+Inmaculada+Concepci%C3%B3n%2C+Vicu%C3%B1a!5e0!3m2!1ses!2scl!4v1"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <div class="location-place-details">
+            <div class="location-place-name">Parroquia Inmaculada Concepción</div>
+            <div class="location-place-info">
+              <span>📍 <strong>Vicuña</strong>, Región de Coquimbo</span>
+              <span>🕒 Sábado 10 de Octubre 2026 · <strong>15:00 hrs</strong></span>
+            </div>
+            <div class="location-place-cta">
+              <a
+                href="https://www.google.com/maps/search/Parroquia+Inmaculada+Concepcion+Vicuna+Chile"
+                target="_blank" rel="noopener noreferrer"
+                class="btn-maps-sm" aria-label="Ver en Google Maps">
+                🗺️ Google Maps
+              </a>
+              <a
+                href="https://waze.com/ul?q=Parroquia+Inmaculada+Concepcion+Vicuna&navigate=yes"
+                target="_blank" rel="noopener noreferrer"
+                class="btn-waze-sm" aria-label="Abrir en Waze">
+                🚗 Waze
+              </a>
+            </div>
           </div>
         </div>
+
+        <!-- LUGAR 2: CÓCTEL Y FIESTA -->
+        <div class="location-place-card">
+          <div class="location-place-badge secondary">🥂 Cóctel &amp; Fiesta · 16:30 hrs</div>
+          <iframe
+            class="location-place-map"
+            title="Ubicación Cóctel y Fiesta"
+            src="https://www.google.com/maps/embed?pb=!3m2!1ses!2scl!4v1!6m8!1m7!1swjm7WKjQQNCpU6WcygoZtQ!2m2!1d-30.0342991!2d-70.7453859!3f179.66!4f10.99!5f0.7820865974627469"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <div class="location-place-details">
+            <div class="location-place-name">Parcela 3 El Tambo</div>
+            <div class="location-place-info">
+              <span>📍 <strong>Ruta 41, Vicuña</strong>, Región de Coquimbo</span>
+              <span>🕒 Sábado 10 de Octubre 2026 · <strong>16:30 hrs</strong></span>
+            </div>
+            <div class="location-place-cta">
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=-30.0342991,-70.7453859"
+                target="_blank" rel="noopener noreferrer"
+                class="btn-maps-sm" aria-label="Ver en Google Maps">
+                🗺️ Google Maps
+              </a>
+              <a
+                href="https://waze.com/ul?ll=-30.0342991,-70.7453859&navigate=yes"
+                target="_blank" rel="noopener noreferrer"
+                class="btn-waze-sm" aria-label="Abrir en Waze">
+                🚗 Waze
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -270,7 +647,28 @@
         </div>
       </article>
 
-      <!-- REGALO 8 — Libre Elección (siempre disponible) -->
+      <!-- REGALO 8 — Luna de miel -->
+      <article class="gift-card"
+        data-id="gift-luna"
+        data-name="Luna de miel en Cartagena"
+        data-price="200000"
+        data-img-slug="gift-luna"
+        data-emoji="🌴">
+        <div class="gift-badge-gifted">✓ Ya regalado</div>
+        <div class="gift-img-wrap">
+          <img src="" alt="Luna de miel en Cartagena" width="600" height="400" loading="lazy" />
+          <div class="gift-img-fallback" aria-hidden="true">🌴</div>
+        </div>
+        <div class="gift-body">
+          <h3 class="gift-title">Luna de miel en Cartagena</h3>
+          <p class="gift-desc">Sueñamos con unos días en las playas del Caribe. Cada aporte nos acerca más a este sueño compartido.</p>
+          <div class="gift-price-row">
+            <span class="gift-price">$200.000</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- REGALO 9 — Libre Elección (siempre disponible) -->
       <article class="gift-card"
         data-id="gift-libre"
         data-name="Libre Elección"
@@ -291,6 +689,134 @@
         </div>
       </article>
 
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       SECCIÓN CONFIRMACIÓN DE ASISTENCIA
+       ════════════════════════════════════════════════════ -->
+  <section class="confirm-section" aria-labelledby="confirm-heading">
+    <div class="confirm-inner">
+      <span class="section-label">✦ Confirma tu asistencia ✦</span>
+      <h2 id="confirm-heading">¿Nos acompañas?</h2>
+      <p>Por favor confirma tu asistencia antes del <strong>30 de agosto 2026</strong> para ayudarnos con los preparativos.</p>
+      <a
+        href="GOOGLE_FORMS_LINK_AQUI"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-confirm-attend"
+        aria-label="Confirmar asistencia al matrimonio">
+        <span class="btn-icon">💌</span>
+        Confirmar asistencia
+      </a>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       SECCIÓN CRONOGRAMA
+       ════════════════════════════════════════════════════ -->
+  <section class="schedule-section" aria-labelledby="schedule-heading">
+    <div class="schedule-inner">
+      <div class="section-header">
+        <span class="section-label">✦ El gran día ✦</span>
+        <h2 id="schedule-heading">Programa del Matrimonio</h2>
+      </div>
+
+      <div class="schedule-timeline">
+
+        <div class="schedule-item">
+          <div class="schedule-dot-wrap"><div class="schedule-dot"></div></div>
+          <div class="schedule-emoji">💍</div>
+          <div class="schedule-content">
+            <div class="schedule-time">15:00 hrs</div>
+            <div class="schedule-title">Ceremonia Religiosa</div>
+            <div class="schedule-sub">Parroquia Inmaculada Concepción · Vicuña</div>
+          </div>
+        </div>
+
+        <div class="schedule-item">
+          <div class="schedule-dot-wrap"><div class="schedule-dot"></div></div>
+          <div class="schedule-emoji">🥂</div>
+          <div class="schedule-content">
+            <div class="schedule-time">16:30 hrs</div>
+            <div class="schedule-title">Cóctel</div>
+            <div class="schedule-sub">Parcela 3 El Tambo · Ruta 41, Vicuña</div>
+          </div>
+        </div>
+
+        <div class="schedule-item">
+          <div class="schedule-dot-wrap"><div class="schedule-dot"></div></div>
+          <div class="schedule-emoji">🍽️</div>
+          <div class="schedule-content">
+            <div class="schedule-time">18:00 hrs</div>
+            <div class="schedule-title">Cena</div>
+            <div class="schedule-sub">Parcela 3 El Tambo</div>
+          </div>
+        </div>
+
+        <div class="schedule-item">
+          <div class="schedule-dot-wrap"><div class="schedule-dot"></div></div>
+          <div class="schedule-emoji">🎶</div>
+          <div class="schedule-content">
+            <div class="schedule-time">20:00 hrs</div>
+            <div class="schedule-title">Fiesta</div>
+            <div class="schedule-sub">¡A bailar toda la noche!</div>
+          </div>
+        </div>
+
+        <div class="schedule-item">
+          <div class="schedule-dot-wrap"><div class="schedule-dot"></div></div>
+          <div class="schedule-emoji">🌙</div>
+          <div class="schedule-content">
+            <div class="schedule-time">01:00 hrs</div>
+            <div class="schedule-title">A descansar</div>
+            <div class="schedule-sub">Fin de la celebración</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       SECCIÓN RECOMENDACIONES
+       ════════════════════════════════════════════════════ -->
+  <section class="reco-section" aria-labelledby="reco-heading">
+    <div class="reco-inner">
+      <div class="section-header">
+        <span class="section-label">✦ Algunas ideas ✦</span>
+        <h2 id="reco-heading">Recomendaciones Mágicas</h2>
+        <p>Para que disfrutes al máximo este día especial con nosotros.</p>
+      </div>
+
+      <div class="reco-grid">
+
+        <!-- CÓDIGO DE VESTIMENTA -->
+        <div class="reco-card">
+          <div class="reco-card-header">
+            <div class="reco-card-icon">👗</div>
+            <div class="reco-card-title">Código de Vestimenta</div>
+          </div>
+          <ul class="reco-list">
+            <li>No blanco</li>
+            <li>No rojo</li>
+            <li>No nude</li>
+          </ul>
+        </div>
+
+        <!-- RECOMENDACIONES -->
+        <div class="reco-card">
+          <div class="reco-card-header">
+            <div class="reco-card-icon">✨</div>
+            <div class="reco-card-title">Consejos del Lugar</div>
+          </div>
+          <ul class="reco-list check">
+            <li>Llevar zapatos de cambio — el evento es en espacio con pasto</li>
+            <li>Llevar abrigo — las noches aún son frías en Vicuña</li>
+          </ul>
+        </div>
+
+      </div>
     </div>
   </section>
 
