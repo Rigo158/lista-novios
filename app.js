@@ -225,13 +225,12 @@ function copyField(id, btn) {
 
 /* ── Copiar todos los datos bancarios de una vez ─────── */
 function copyAllBank(btn) {
-  const nombre  = document.getElementById('bNombre').textContent.trim();
-  const rut     = document.getElementById('bRut').textContent.trim();
-  const banco   = document.getElementById('bBanco').textContent.trim();
-  const tipo    = document.getElementById('bTipo').textContent.trim();
-  const cuenta  = document.getElementById('bCuenta').textContent.trim();
-  const email   = document.getElementById('bEmail').textContent.trim();
-  const comment = document.getElementById('transferComment').textContent.trim();
+  const nombre = document.getElementById('bNombre').textContent.trim();
+  const rut    = document.getElementById('bRut').textContent.trim();
+  const banco  = document.getElementById('bBanco').textContent.trim();
+  const tipo   = document.getElementById('bTipo').textContent.trim();
+  const cuenta = document.getElementById('bCuenta').textContent.trim();
+  const email  = document.getElementById('bEmail').textContent.trim();
 
   const text = [
     `Titular: ${nombre}`,
@@ -239,8 +238,7 @@ function copyAllBank(btn) {
     `Banco: ${banco}`,
     `Tipo de cuenta: ${tipo}`,
     `N° de cuenta: ${cuenta}`,
-    `Email: ${email}`,
-    `Comentario: ${comment}`
+    `Email: ${email}`
   ].join('\n');
 
   navigator.clipboard.writeText(text).then(() => {
