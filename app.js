@@ -117,6 +117,12 @@ function closeModal() {
     document.getElementById('submitStatus').textContent = '';
     document.getElementById('submitStatus').className  = 'submit-status';
     document.getElementById('btnConfirm').disabled = false;
+    // Resetear botón copiar todo
+    const btnAll = document.getElementById('btnCopyAll');
+    if (btnAll) {
+      btnAll.textContent = '📋 Copiar todos los datos bancarios';
+      btnAll.classList.remove('copied');
+    }
     clearErrors();
     showStep(1);
   }, 300);
@@ -204,7 +210,7 @@ async function goToStep3() {
   }
 }
 
-/* ── Copiar al portapapeles ──────────────────────────── */
+/* ── Copiar al portapapeles (campo individual) ──────── */
 function copyField(id, btn) {
   const text = document.getElementById(id).textContent.trim();
   navigator.clipboard.writeText(text).then(() => {
@@ -214,6 +220,36 @@ function copyField(id, btn) {
       btn.textContent = 'Copiar';
       btn.classList.remove('copied');
     }, 2000);
+  });
+}
+
+/* ── Copiar todos los datos bancarios de una vez ─────── */
+function copyAllBank(btn) {
+  const nombre  = document.getElementById('bNombre').textContent.trim();
+  const rut     = document.getElementById('bRut').textContent.trim();
+  const banco   = document.getElementById('bBanco').textContent.trim();
+  const tipo    = document.getElementById('bTipo').textContent.trim();
+  const cuenta  = document.getElementById('bCuenta').textContent.trim();
+  const email   = document.getElementById('bEmail').textContent.trim();
+  const comment = document.getElementById('transferComment').textContent.trim();
+
+  const text = [
+    `Titular: ${nombre}`,
+    `RUT: ${rut}`,
+    `Banco: ${banco}`,
+    `Tipo de cuenta: ${tipo}`,
+    `N° de cuenta: ${cuenta}`,
+    `Email: ${email}`,
+    `Comentario: ${comment}`
+  ].join('\n');
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ ¡Datos copiados!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 Copiar todos los datos bancarios';
+      btn.classList.remove('copied');
+    }, 3000);
   });
 }
 
